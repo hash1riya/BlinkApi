@@ -1,4 +1,10 @@
 package com.blink.BlinkApi.message;
 
-public record MessageDTO() {
+import java.time.LocalDate;
+
+record MessageDTO(
+        String id,
+        String userId,
+        String content,
+        LocalDate timeStamp) {
 }

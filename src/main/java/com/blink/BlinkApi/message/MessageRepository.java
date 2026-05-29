@@ -1,4 +1,7 @@
 package com.blink.BlinkApi.message;
 
-public class MessageRepository {
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+interface MessageRepository extends MongoRepository<Message, String> {
+
 }
