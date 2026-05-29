@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "messages")
-class Message {
+public class Message {
     @Id
     String id;
     String userId;

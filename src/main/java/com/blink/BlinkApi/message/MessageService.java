@@ -13,18 +13,18 @@ import java.util.stream.Collectors;
 class MessageService {
 
     private final MessageRepository repo;
-    private final MessageDTOMapper mapper;
+    private static final MessageDTOMapper mapper = new MessageDTOMapper();
 
     public List<MessageDTO> findAll() {
         return this.repo.findAll()
                 .stream()
-                .map(this.mapper)
+                .map(mapper)
                 .collect(Collectors.toList());
     }
 
     public MessageDTO findById(String id) {
         return this.repo.findById(id)
-                .map(this.mapper)
+                .map(mapper)
                 .orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND,
                 MessageService.class + ": Message not found"
@@ -46,7 +46,7 @@ class MessageService {
         newMsg.setContent(msg.content());
         newMsg.setTimeStamp(msg.timeStamp());
 
-        return this.mapper.apply(this.repo.save(newMsg));
+        return mapper.apply(this.repo.save(newMsg));
     }
 
     public MessageDTO update(String targetId, MessageDTO upd) {
@@ -55,7 +55,7 @@ class MessageService {
         targetMsg.setContent(upd.content());
         targetMsg.setTimeStamp(upd.timeStamp());
 
-        return this.mapper.apply(this.repo.save(targetMsg));
+        return mapper.apply(this.repo.save(targetMsg));
     }
 
     public MessageDTO delete(String id) {
