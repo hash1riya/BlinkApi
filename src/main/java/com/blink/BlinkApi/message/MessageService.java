@@ -1,6 +1,5 @@
 package com.blink.BlinkApi.message;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -8,12 +7,15 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 @Service
 class MessageService {
 
     private final MessageRepository repo;
     private static final MessageDTOMapper mapper = new MessageDTOMapper();
+
+    MessageService(MessageRepository repo) {
+        this.repo = repo;
+    }
 
     public List<MessageDTO> findAll() {
         return this.repo.findAll()
