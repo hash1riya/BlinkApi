@@ -1,4 +1,63 @@
 package com.blink.BlinkApi.room;
 
-public class RoomService {
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+class RoomService {
+
+    private final RoomRepository repo;
+
+
+    public List<RoomDTO> findAll() {
+        return this.repo.findAll()
+                .stream()
+                .map(RoomMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public RoomDTO findById(String id) {
+        return this.repo.findById(id)
+                .map(RoomMapper::toDto)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        RoomService.class + ": Room not found"
+                ));
+    }
+
+    public Room findEntityById(String id) {
+        return this.repo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        RoomService.class + ": Room not found"
+                ));
+    }
+
+    public RoomDTO create(RoomDTO room) {
+        Room newRoom = RoomMapper.toEntity(room);
+        return RoomMapper.toDto(this.repo.save(newRoom));
+    }
+
+    public RoomDTO update(String targetId, RoomDTO upd) {
+        Room targetRoom = this.findEntityById(targetId);
+
+        targetRoom.setOwnerId(upd.ownerId());
+        targetRoom.setName(upd.name());
+        targetRoom.setDesc(upd.desc());
+        targetRoom.setMembers(upd.members());
+
+        return RoomMapper.toDto(this.repo.save(targetRoom));
+    }
+
+    public RoomDTO delete(String id) {
+        RoomDTO dltRoom = this.findById(id);
+        this.repo.delete(this.findEntityById(id));
+        return dltRoom;
+    }
 }
