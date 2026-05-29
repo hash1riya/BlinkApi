@@ -47,10 +47,14 @@ class RoomService {
     public RoomDTO update(String targetId, RoomDTO upd) {
         Room targetRoom = this.findEntityById(targetId);
 
-        targetRoom.setOwnerId(upd.ownerId());
-        targetRoom.setName(upd.name());
-        targetRoom.setDesc(upd.desc());
-        targetRoom.setMembers(upd.members());
+        if (targetRoom.getOwnerId() != null)
+            targetRoom.setOwnerId(upd.ownerId());
+        if (targetRoom.getName() != null)
+            targetRoom.setName(upd.name());
+        if (targetRoom.getDesc() != null)
+            targetRoom.setDesc(upd.desc());
+        if (targetRoom.getMembers() != null)
+            targetRoom.setMembers(upd.members());
 
         return RoomMapper.toDto(this.repo.save(targetRoom));
     }

@@ -1,10 +1,7 @@
 package com.blink.BlinkApi.room;
 
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 
-@Service
 public interface RoomMapper {
 
     static RoomDTO toDto(Room r) {

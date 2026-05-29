@@ -1,10 +1,7 @@
 package com.blink.BlinkApi.message;
 
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 
-@Service
 public interface MessageMapper {
 
     static MessageDTO toDto(Message m) {

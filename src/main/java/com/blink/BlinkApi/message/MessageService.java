@@ -45,7 +45,11 @@ class MessageService {
     }
 
     public MessageDTO update(String targetId, String upd) {
+
         Message targetMsg = this.findEntityById(targetId);
+
+        if (upd == null)
+            return MessageMapper.toDto(targetMsg);
 
         targetMsg.setContent(upd);
         targetMsg.setLastUpdate(LocalDateTime.now());
