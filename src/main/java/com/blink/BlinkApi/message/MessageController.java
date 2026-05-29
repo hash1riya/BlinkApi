@@ -1,7 +1,6 @@
 package com.blink.BlinkApi.message;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,14 +8,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("blink/messages")
+@RequiredArgsConstructor
 public class MessageController {
 
-    private final static Logger LOGGER = LoggerFactory. getLogger(MessageController.class);
     private final MessageService service;
-
-    public MessageController(MessageService service) {
-        this.service = service;
-    }
 
     @GetMapping
     public List<MessageDTO> findAll() { return this.service.findAll(); }
@@ -29,7 +24,8 @@ public class MessageController {
     public MessageDTO create(@RequestBody MessageDTO req) { return this.service.create(req); }
 
     @PutMapping("/{id}")
-    public MessageDTO update(@PathVariable String id, @RequestBody MessageDTO req) { return this.service.update(id, req);}
+    public MessageDTO update(@PathVariable String id, @RequestParam String req)
+    { return this.service.update(id, req); }
 
     @DeleteMapping("/{id}")
     public MessageDTO delete(@PathVariable String id) { return this.service.delete(id); }

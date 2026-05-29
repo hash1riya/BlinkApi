@@ -2,7 +2,7 @@ package com.blink.BlinkApi.message;
 
 import org.springframework.stereotype.Service;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Service
 public interface MessageMapper {
@@ -23,7 +23,7 @@ public interface MessageMapper {
                 mDto.userId(),
                 mDto.roomId(),
                 mDto.content(),
-                ZonedDateTime.now()
+                LocalDateTime.now()
         );
     }
 }

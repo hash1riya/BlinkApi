@@ -1,13 +1,13 @@
 package com.blink.BlinkApi.message;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 public record MessageDTO(
         String id,
         String userId,
         String roomId,
         String content,
-        ZonedDateTime timeStamp
+        LocalDateTime timeStamp
 ) {
 
 }

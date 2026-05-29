@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +18,5 @@ public class Message {
     private String userId;
     private String roomId;
     private String content;
-    private ZonedDateTime timeStamp;
+    private LocalDateTime timeStamp;
 }
