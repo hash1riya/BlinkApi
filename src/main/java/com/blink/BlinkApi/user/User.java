@@ -3,10 +3,11 @@ package com.blink.BlinkApi.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -15,13 +16,12 @@ import java.util.List;
 @Document(collection = "users")
 public class User {
     @Id
-    String id;
+    private String id;
 
-    String name;
-    String desc;
-    UserStatus status;
+    private String username;
+    private String desc;
+    private UserStatus status;
 
-    List<User> friends;
-
-    ZonedDateTime timeStamp;
+    @CreatedDate
+    private LocalDateTime timeStamp;
 }

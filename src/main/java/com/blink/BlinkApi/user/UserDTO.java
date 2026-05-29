@@ -1,4 +1,14 @@
 package com.blink.BlinkApi.user;
 
-public record UserDTO() {
+import java.time.LocalDateTime;
+
+public record UserDTO(
+        String id,
+
+        String name,
+        String desc,
+        UserStatus status,
+
+        LocalDateTime timeStamp
+) {
 }
