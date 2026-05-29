@@ -40,7 +40,7 @@ class RoomService {
     }
 
     public RoomDTO create(RoomDTO room) {
-        Room newRoom = RoomMapper.toEntity(room);
+        Room newRoom = RoomMapper.toFreshEntity(room);
         return RoomMapper.toDto(this.repo.save(newRoom));
     }
 

@@ -40,7 +40,7 @@ class MessageService {
     }
 
     public MessageDTO create(MessageDTO msg) {
-        Message newMsg = MessageMapper.toEntity(msg);
+        Message newMsg = MessageMapper.toFreshEntity(msg);
         return MessageMapper.toDto(this.repo.save(newMsg));
     }
 
@@ -48,7 +48,7 @@ class MessageService {
         Message targetMsg = this.findEntityById(targetId);
 
         targetMsg.setContent(upd);
-        targetMsg.setTimeStamp(LocalDateTime.now());
+        targetMsg.setLastUpdate(LocalDateTime.now());
 
         return MessageMapper.toDto(this.repo.save(targetMsg));
     }

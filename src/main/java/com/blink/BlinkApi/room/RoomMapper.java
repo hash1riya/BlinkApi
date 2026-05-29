@@ -18,7 +18,7 @@ public interface RoomMapper {
         );
     }
 
-    static Room toEntity(RoomDTO rDto) {
+    static Room toFreshEntity(RoomDTO rDto) {
         return new Room(
                 null,
                 rDto.ownerId(),

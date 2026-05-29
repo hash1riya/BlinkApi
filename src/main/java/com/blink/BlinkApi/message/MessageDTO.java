@@ -7,7 +7,8 @@ public record MessageDTO(
         String userId,
         String roomId,
         String content,
-        LocalDateTime timeStamp
+        LocalDateTime timeStamp,
+        LocalDateTime lastUpdate
 ) {
 
 }

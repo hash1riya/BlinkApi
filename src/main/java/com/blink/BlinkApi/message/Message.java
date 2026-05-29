@@ -19,4 +19,5 @@ public class Message {
     private String roomId;
     private String content;
     private LocalDateTime timeStamp;
+    private LocalDateTime lastUpdate;
 }

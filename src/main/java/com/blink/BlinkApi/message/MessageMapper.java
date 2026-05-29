@@ -13,16 +13,18 @@ public interface MessageMapper {
                 m.getUserId(),
                 m.getRoomId(),
                 m.getContent(),
-                m.getTimeStamp()
+                m.getTimeStamp(),
+                m.getLastUpdate()
         );
     }
 
-    static Message toEntity(MessageDTO mDto) {
+    static Message toFreshEntity(MessageDTO mDto) {
         return new Message(
                 null,
                 mDto.userId(),
                 mDto.roomId(),
                 mDto.content(),
+                LocalDateTime.now(),
                 LocalDateTime.now()
         );
     }

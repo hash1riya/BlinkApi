@@ -3,6 +3,7 @@ package com.blink.BlinkApi.room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,5 +24,6 @@ public class Room {
 
     private List<String> members;
 
+    @CreatedDate
     private LocalDateTime timeStamp;
 }
