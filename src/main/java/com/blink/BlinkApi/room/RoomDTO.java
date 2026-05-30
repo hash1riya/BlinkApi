@@ -10,8 +10,6 @@ public record RoomDTO(
         String name,
         String desc,
 
-        List<String>members,
-
         LocalDateTime timeStamp
 ) {
 

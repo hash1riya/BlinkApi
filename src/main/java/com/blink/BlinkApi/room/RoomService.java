@@ -14,7 +14,6 @@ class RoomService {
 
     private final RoomRepository repo;
 
-
     public List<RoomDTO> findAll() {
         return this.repo.findAll()
                 .stream()
@@ -53,8 +52,6 @@ class RoomService {
             targetRoom.setName(upd.name());
         if (targetRoom.getDesc() != null)
             targetRoom.setDesc(upd.desc());
-        if (targetRoom.getMembers() != null)
-            targetRoom.setMembers(upd.members());
 
         return RoomMapper.toDto(this.repo.save(targetRoom));
     }

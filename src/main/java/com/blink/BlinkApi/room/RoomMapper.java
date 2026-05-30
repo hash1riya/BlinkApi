@@ -2,7 +2,7 @@ package com.blink.BlinkApi.room;
 
 import java.time.LocalDateTime;
 
-public interface RoomMapper {
+interface RoomMapper {
 
     static RoomDTO toDto(Room r) {
         return new RoomDTO(
@@ -10,7 +10,6 @@ public interface RoomMapper {
                 r.getOwnerId(),
                 r.getName(),
                 r.getDesc(),
-                r.getMembers(),
                 r.getTimeStamp()
         );
     }
@@ -21,7 +20,6 @@ public interface RoomMapper {
                 rDto.ownerId(),
                 rDto.name(),
                 rDto.desc(),
-                rDto.members(),
                 rDto.timeStamp() != null ? rDto.timeStamp() : LocalDateTime.now()
         );
     }

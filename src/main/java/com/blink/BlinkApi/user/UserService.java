@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-class UserService {
+public class UserService {
 
     private final UserRepository repo;
 
@@ -21,6 +21,14 @@ class UserService {
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public List<UserDTO> findAllByIds(List<String> ids) {
+        return this.repo.findAllById(ids)
+                .stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 
     public UserDTO findById(String id) {
         return this.repo.findById(id)
