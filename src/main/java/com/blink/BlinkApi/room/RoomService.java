@@ -50,13 +50,17 @@ class RoomService {
     public RoomDTO update(String targetId, RoomDTO upd) {
         Room targetRoom = this.findEntityById(targetId);
 
-        if (targetRoom.getOwnerId() != null)
-            targetRoom.setOwnerId(upd.ownerId());
         if (targetRoom.getName() != null)
             targetRoom.setName(upd.name());
         if (targetRoom.getDesc() != null)
             targetRoom.setDesc(upd.desc());
 
+        return RoomMapper.toDto(this.repo.save(targetRoom));
+    }
+
+    public RoomDTO changeOwner(String targetId, String newOwnerId) {
+        Room targetRoom = this.findEntityById(targetId);
+        targetRoom.setOwnerId(newOwnerId);
         return RoomMapper.toDto(this.repo.save(targetRoom));
     }
 

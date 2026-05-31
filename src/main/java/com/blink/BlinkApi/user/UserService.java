@@ -47,9 +47,9 @@ public class UserService {
                 ));
     }
 
-    public UserDTO create(UserDTO room) {
-        User newRoom = UserMapper.toFreshEntity(room);
-        return UserMapper.toDto(this.repo.save(newRoom));
+    public UserDTO create(UserDTO user) {
+        User newUser = UserMapper.toFreshEntity(user);
+        return UserMapper.toDto(this.repo.save(newUser));
     }
 
     public UserDTO update(String targetId, UserDTO upd) {

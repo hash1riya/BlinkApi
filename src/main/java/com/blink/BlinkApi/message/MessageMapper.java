@@ -15,6 +15,17 @@ public interface MessageMapper {
         );
     }
 
+    static Message toEntity(MessageDTO mDto) {
+        return new Message(
+                mDto.id(),
+                mDto.userId(),
+                mDto.roomId(),
+                mDto.content(),
+                mDto.timeStamp(),
+                mDto.lastUpdate()
+        );
+    }
+
     static Message toFreshEntity(MessageDTO mDto) {
         return new Message(
                 null,

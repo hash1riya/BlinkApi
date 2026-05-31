@@ -33,6 +33,14 @@ class MessageService {
         ));
     }
 
+    public List<MessageDTO> findByRoomId(String roomId) {
+        return this.repo.findAllByRoomId(roomId);
+    }
+
+    public List<MessageDTO> findByContent(String content) {
+        return this.repo.findAllByContent(content);
+    }
+
     public Message findEntityById(String id) {
         return this.repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(

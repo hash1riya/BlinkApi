@@ -1,6 +1,5 @@
 package com.blink.BlinkApi.user;
 
-
 import java.time.LocalDateTime;
 
 public interface UserMapper {
@@ -14,13 +13,23 @@ public interface UserMapper {
         );
     }
 
+    static User toEntity(UserDTO uDto) {
+        return new User(
+                uDto.id(),
+                uDto.name(),
+                uDto.desc(),
+                uDto.status(),
+                uDto.timeStamp()
+        );
+    }
+
     static User toFreshEntity(UserDTO uDto) {
         return new User(
                 null,
                 uDto.name(),
                 uDto.desc(),
-                uDto.status() != null ? uDto.status() : UserStatus.OFFLINE,
-                uDto.timeStamp() != null ? uDto.timeStamp() : LocalDateTime.now()
+                UserStatus.OFFLINE,
+                LocalDateTime.now()
         );
     }
 }

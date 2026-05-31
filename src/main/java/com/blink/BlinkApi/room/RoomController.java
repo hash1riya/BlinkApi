@@ -24,7 +24,7 @@ public class RoomController {
 
     // -- Core Room Management --
 
-    // 1. Get all rooms list
+    // 1. Get all rooms
     @GetMapping
     public List<RoomDTO> findAll() { return this.rService.findAll(); }
 

@@ -46,7 +46,7 @@ class MembershipService {
 
     public Membership createMembership(String roomId, String userId, UserRole role) {
 
-        if (this.repo.findByRoomUserId(roomId, userId).isEmpty())
+        if (this.repo.findByRoomUserId(roomId, userId).isPresent())
             throw new ResponseStatusException(
                     HttpStatus.FORBIDDEN,
                     MembershipService.class
