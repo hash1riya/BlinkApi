@@ -40,7 +40,7 @@ class MembershipService {
                         HttpStatus.NOT_FOUND,
                         MembershipService.class
                                 + ": User " + userId
-                                + " not found in room " + roomId
+                                + " does not participate in room " + roomId
                 ));
     }
 

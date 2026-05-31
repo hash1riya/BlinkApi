@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -91,7 +90,8 @@ public class RoomController {
             throw new ResponseStatusException(
                     HttpStatus.FORBIDDEN,
                     RoomController.class
-                    + ": You are the Owner"
+                            + ": User " + userId
+                            + " is the Owner of the room " + roomId
             );
         }
 

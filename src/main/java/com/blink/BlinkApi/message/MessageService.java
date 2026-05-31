@@ -27,7 +27,9 @@ class MessageService {
                 .map(MessageMapper::toDto)
                 .orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND,
-                MessageService.class + ": Message not found"
+                MessageService.class
+                        + ": Message " + id
+                        + " not found"
         ));
     }
 
@@ -35,7 +37,9 @@ class MessageService {
         return this.repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        MessageService.class + ": Message not found"
+                        MessageService.class
+                                + ": Message " + id
+                                + " not found"
                 ));
     }
 

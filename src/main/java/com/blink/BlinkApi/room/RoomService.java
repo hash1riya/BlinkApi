@@ -26,7 +26,9 @@ class RoomService {
                 .map(RoomMapper::toDto)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        RoomService.class + ": Room not found"
+                        RoomService.class
+                                + ": Room " + id
+                                + " not found"
                 ));
     }
 
@@ -34,7 +36,9 @@ class RoomService {
         return this.repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        RoomService.class + ": Room not found"
+                        RoomService.class
+                                + ": Room " + id
+                                + " not found"
                 ));
     }
 
