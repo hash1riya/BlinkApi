@@ -9,7 +9,11 @@ public record FriendshipDTO(
 
         FriendshipStatus status,
 
-        LocalDateTime timeStamp
+        String actionUserId,
+
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        LocalDateTime lastInteractionAt
 ) {
 
 }

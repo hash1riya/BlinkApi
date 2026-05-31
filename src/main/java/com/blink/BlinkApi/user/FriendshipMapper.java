@@ -9,7 +9,10 @@ interface FriendshipMapper {
                 f.getId(),
                 friend,
                 f.getStatus(),
-                f.getTimeStamp()
+                f.getActionUserId(),
+                f.getCreatedAt(),
+                f.getUpdatedAt(),
+                f.getLastInteractionAt()
         );
     }
 }

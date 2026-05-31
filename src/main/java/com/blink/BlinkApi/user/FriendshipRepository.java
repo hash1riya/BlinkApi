@@ -26,7 +26,7 @@ interface FriendshipRepository extends MongoRepository<Friendship, String> {
     Optional<Friendship> findFriendshipBetween(String userA, String userB);
 
     @Query("{ '$or': [ { 'requesterId': '?0', 'receiverId': '?1' }, { 'receiverId': '?0', 'requesterId': '?1' } ] }")
-    @Update("{ '$set' : { 'status': '?2' } }")
+    @Update("{ '$set' : { 'status': '?2' }, '$currentDate' : { 'lastInteractionAt': true } }")
     void updateStatus(String userA, String userB, FriendshipStatus status);
 
 }

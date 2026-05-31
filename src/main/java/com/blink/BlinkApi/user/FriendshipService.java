@@ -63,7 +63,7 @@ class FriendshipService {
         f.setRequesterId(requesterId);
         f.setReceiverId(receiverId);
         f.setStatus(FriendshipStatus.PENDING);
-        f.setTimeStamp(LocalDateTime.now());
+        f.setLastInteractionAt(LocalDateTime.now());
 
         return this.repo.save(f);
     }

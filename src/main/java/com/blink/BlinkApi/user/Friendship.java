@@ -2,7 +2,9 @@ package com.blink.BlinkApi.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -20,5 +22,11 @@ class Friendship {
 
     private FriendshipStatus status;
 
-    private LocalDateTime timeStamp;
+    private String actionUserId;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+    private LocalDateTime lastInteractionAt;
 }
