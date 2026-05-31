@@ -1,6 +1,7 @@
 package com.blink.BlinkApi.room;
 
-enum UserRole {
+public enum UserRole {
+    OWNER,
     ADMIN,
     MODERATOR,
     MEMBER

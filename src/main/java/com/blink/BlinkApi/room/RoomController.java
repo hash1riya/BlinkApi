@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,18 @@ public class RoomController {
     // 3. Create new room
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RoomDTO create(@RequestBody RoomDTO req) { return this.rService.create(req); }
+    public RoomDTO create(@RequestBody RoomDTO req) {
+
+        RoomDTO newRoom = this.rService.create(req);
+
+        this.mService.createMembership(
+                newRoom.id(),
+                newRoom.ownerId(),
+                UserRole.OWNER
+        );
+
+        return newRoom;
+    }
 
     // 4. Update existing room
     @PutMapping("/{id}")
@@ -52,7 +64,7 @@ public class RoomController {
 
     // 1. Get all users per room
     @GetMapping("/{roomId}/members")
-    public List<UserDTO> getAllUsersPerRoom(@PathVariable String roomId) {
+    public List<UserDTO> findAllUsersPerRoom(@PathVariable String roomId) {
         List<String> userIds = this.mService.findUsersPerRoom(roomId);
         return this.uService.findAllByIds(userIds);
     }
@@ -73,16 +85,17 @@ public class RoomController {
             @PathVariable String userId) {
 
         Membership m = this.mService.findByRoomUserId(roomId, userId);
+        Room r = this.rService.findEntityById(m.getRoomId());
 
-        if (m.getRole() == UserRole.ADMIN) {
+        if (r.getOwnerId().equals(userId)) {
             throw new ResponseStatusException(
                     HttpStatus.FORBIDDEN,
                     RoomController.class
-                    + ": You are Administrator"
+                    + ": You are the Owner"
             );
         }
 
-        return this.mService.deleteMembership(m.getId());
+        return this.mService.deleteMembership(m);
     }
 
     // 4. Update user role

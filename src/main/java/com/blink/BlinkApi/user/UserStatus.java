@@ -1,6 +1,6 @@
 package com.blink.BlinkApi.user;
 
-enum UserStatus {
+public enum UserStatus {
     ONLINE,
     IDLE,
     DO_NOT_DISTURB,
