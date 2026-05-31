@@ -25,11 +25,11 @@ class MembershipService {
                 ));
     }
 
-    public List<String> findUsersPerRoom(String roomId) {
-        return this.repo
-                .findByRoomId(roomId)
+    public List<Membership> findMembershipsByRoomId(String id) {
+        return this.repo.findAll()
                 .stream()
-                .map(Membership::getUserId)
+                .filter(m ->
+                        m.getRoomId().equals(id))
                 .collect(Collectors.toList());
     }
 
@@ -44,7 +44,7 @@ class MembershipService {
                 ));
     }
 
-    public boolean createMembership(String roomId, String userId, UserRole role) {
+    public Membership createMembership(String roomId, String userId, UserRole role) {
 
         if (this.repo.findByRoomUserId(roomId, userId).isEmpty())
             throw new ResponseStatusException(
@@ -61,12 +61,10 @@ class MembershipService {
         m.setRole(role);
         m.setJoinedAt(LocalDateTime.now());
 
-        this.repo.save(m);
-
-        return true;
+        return this.repo.save(m);
     }
 
-    public boolean createMembership(String roomId, String userId) {
+    public Membership createMembership(String roomId, String userId) {
         return this.createMembership(roomId, userId, UserRole.MEMBER);
     }
 
@@ -75,10 +73,9 @@ class MembershipService {
         return true;
     }
 
-    public boolean updateMembershipRole(String roomId, String userId, UserRole r) {
+    public Membership updateMembershipRole(String roomId, String userId, UserRole r) {
         Membership targetM = this.findByRoomUserId(roomId, userId);
         targetM.setRole(r);
-        this.repo.save(targetM);
-        return true;
+        return this.repo.save(targetM);
     }
 }

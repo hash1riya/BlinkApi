@@ -1,5 +1,7 @@
 package com.blink.BlinkApi.room;
 
+import com.blink.BlinkApi.common.RoomMemberDTO;
+import com.blink.BlinkApi.common.RoomMemberMapper;
 import com.blink.BlinkApi.user.UserDTO;
 import com.blink.BlinkApi.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/blink/rooms")
@@ -63,18 +67,40 @@ public class RoomController {
 
     // 1. Get all users per room
     @GetMapping("/{roomId}/members")
-    public List<UserDTO> findAllUsersPerRoom(@PathVariable String roomId) {
-        List<String> userIds = this.mService.findUsersPerRoom(roomId);
-        return this.uService.findAllByIds(userIds);
+    public List<RoomMemberDTO> findAllUsersPerRoom(@PathVariable String roomId) {
+
+        List<Membership> ms = this.mService.findMembershipsByRoomId(roomId);
+        List<String> userIds = ms
+                .stream()
+                .map(Membership::getUserId)
+                .toList();
+        List<UserDTO> users = this.uService.findAllByIds(userIds);
+
+        Map<String, Membership> membershipMap = ms
+                .stream()
+                .collect(Collectors.toMap(
+                        Membership::getUserId,
+                        m -> m));
+
+        return users
+                .stream()
+                .map(u ->
+                        RoomMemberMapper.toDto(
+                                u,
+                                membershipMap.get(u.id())))
+                .toList();
     }
 
     // 2. Join room
     @PostMapping("/{roomId}/members")
-    public boolean joinRoom(
+    public RoomMemberDTO joinRoom(
             @PathVariable String roomId,
             @RequestParam String userId) {
 
-        return this.mService.createMembership(roomId, userId);
+        UserDTO u = this.uService.findById(userId);
+        Membership m = this.mService.createMembership(roomId, userId);
+
+        return RoomMemberMapper.toDto(u, m);
     }
 
     // 3. Leave room
@@ -100,12 +126,15 @@ public class RoomController {
 
     // 4. Update user role
     @PatchMapping("/{roomId}/members/{userId}")
-    public boolean updateUserRole(
+    public RoomMemberDTO updateUserRole(
             @PathVariable String roomId,
             @PathVariable String userId,
             @RequestParam UserRole role) {
 
-        return this.mService.updateMembershipRole(roomId, userId, role);
+        UserDTO u = this.uService.findById(userId);
+        Membership updM = this.mService.updateMembershipRole(roomId, userId, role);
+
+        return RoomMemberMapper.toDto(u, updM);
     }
 
 }
