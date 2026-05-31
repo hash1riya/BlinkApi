@@ -69,7 +69,7 @@ public class RoomController {
     @GetMapping("/{roomId}/members")
     public List<RoomMemberDTO> findAllUsersPerRoom(@PathVariable String roomId) {
 
-        List<Membership> ms = this.mService.findMembershipsByRoomId(roomId);
+        List<Membership> ms = this.mService.findByRoomId(roomId);
         List<String> userIds = ms
                 .stream()
                 .map(Membership::getUserId)
@@ -126,15 +126,13 @@ public class RoomController {
 
     // 4. Update user role
     @PatchMapping("/{roomId}/members/{userId}")
-    public RoomMemberDTO updateUserRole(
+    public boolean updateUserRole(
             @PathVariable String roomId,
             @PathVariable String userId,
             @RequestParam UserRole role) {
 
-        UserDTO u = this.uService.findById(userId);
-        Membership updM = this.mService.updateMembershipRole(roomId, userId, role);
-
-        return RoomMemberMapper.toDto(u, updM);
+        this.mService.updateMembershipRole(roomId, userId, role);
+        return true;
     }
 
 }

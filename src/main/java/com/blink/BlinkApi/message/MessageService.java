@@ -37,7 +37,7 @@ class MessageService {
         return this.repo.findAllByRoomId(roomId);
     }
 
-    public List<MessageDTO> findByContent(String content) {
+    public List<MessageDTO> findAllByContent(String content) {
         return this.repo.findAllByContent(content);
     }
 

@@ -25,7 +25,7 @@ class MembershipService {
                 ));
     }
 
-    public List<Membership> findMembershipsByRoomId(String id) {
+    public List<Membership> findByRoomId(String id) {
         return this.repo.findAll()
                 .stream()
                 .filter(m ->
@@ -68,14 +68,13 @@ class MembershipService {
         return this.createMembership(roomId, userId, UserRole.MEMBER);
     }
 
-    public boolean deleteMembership(Membership m) {
-        this.repo.delete(m);
+    public boolean updateMembershipRole(String roomId, String userId, UserRole r) {
+        this.repo.updateRole(roomId, userId, r);
         return true;
     }
 
-    public Membership updateMembershipRole(String roomId, String userId, UserRole r) {
-        Membership targetM = this.findByRoomUserId(roomId, userId);
-        targetM.setRole(r);
-        return this.repo.save(targetM);
+    public boolean deleteMembership(Membership m) {
+        this.repo.delete(m);
+        return true;
     }
 }
