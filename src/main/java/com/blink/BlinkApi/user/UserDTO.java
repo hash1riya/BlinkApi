@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 public record UserDTO(
         String id,
 
-        String name,
+        String username,
         String email,
         String desc,
+        String password,
+
         UserStatus status,
 
         LocalDateTime createdAt

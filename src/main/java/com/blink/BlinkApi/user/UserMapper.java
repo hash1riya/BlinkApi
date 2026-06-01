@@ -9,6 +9,7 @@ public interface UserMapper {
                 u.getUsername(),
                 u.getEmail(),
                 u.getDesc(),
+                u.getPassword(),
                 u.getStatus(),
                 u.getCreatedAt()
         );
@@ -17,9 +18,10 @@ public interface UserMapper {
     static User toEntity(UserDTO uDto) {
         return new User(
                 uDto.id(),
-                uDto.name(),
+                uDto.username(),
                 uDto.desc(),
                 uDto.email(),
+                uDto.password(),
                 uDto.status(),
                 uDto.createdAt()
         );
@@ -28,9 +30,10 @@ public interface UserMapper {
     static User toFreshEntity(UserDTO uDto) {
         return new User(
                 null,
-                uDto.name(),
+                uDto.username(),
                 uDto.email(),
                 uDto.desc(),
+                uDto.password(),
                 UserStatus.OFFLINE,
                 LocalDateTime.now()
         );
