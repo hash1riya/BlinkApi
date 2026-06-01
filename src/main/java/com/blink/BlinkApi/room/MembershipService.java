@@ -59,7 +59,6 @@ class MembershipService {
         m.setRoomId(roomId);
         m.setUserId(userId);
         m.setRole(role);
-        m.setJoinedAt(LocalDateTime.now());
 
         return this.repo.save(m);
     }

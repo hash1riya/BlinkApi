@@ -7,9 +7,8 @@ public interface RoomMemberMapper {
 
     static RoomMemberDTO toDto(UserDTO user, Membership m) {
         return new RoomMemberDTO(
-                user.id(),
-                user.name(),
-                user.desc(),
+                m.getId(),
+                user,
                 user.status(),
                 m.getRole(),
                 m.getJoinedAt()

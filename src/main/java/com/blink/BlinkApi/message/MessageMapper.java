@@ -1,7 +1,5 @@
 package com.blink.BlinkApi.message;
 
-import java.time.LocalDateTime;
-
 public interface MessageMapper {
 
     static MessageDTO toDto(Message m) {
@@ -10,8 +8,8 @@ public interface MessageMapper {
                 m.getUserId(),
                 m.getRoomId(),
                 m.getContent(),
-                m.getTimeStamp(),
-                m.getLastUpdate()
+                m.getCreatedAt(),
+                m.getUpdatedAt()
         );
     }
 
@@ -21,8 +19,8 @@ public interface MessageMapper {
                 mDto.userId(),
                 mDto.roomId(),
                 mDto.content(),
-                mDto.timeStamp(),
-                mDto.lastUpdate()
+                mDto.createdAt(),
+                mDto.updatedAt()
         );
     }
 
@@ -32,8 +30,8 @@ public interface MessageMapper {
                 mDto.userId(),
                 mDto.roomId(),
                 mDto.content(),
-                LocalDateTime.now(),
-                LocalDateTime.now()
+                null,
+                null
         );
     }
 }

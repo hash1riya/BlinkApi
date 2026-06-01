@@ -1,6 +1,7 @@
 package com.blink.BlinkApi.common;
 
 import com.blink.BlinkApi.room.UserRole;
+import com.blink.BlinkApi.user.UserDTO;
 import com.blink.BlinkApi.user.UserStatus;
 
 import java.time.LocalDateTime;
@@ -8,8 +9,7 @@ import java.time.LocalDateTime;
 public record RoomMemberDTO(
         String id,
 
-        String name,
-        String desc,
+        UserDTO user,
 
         UserStatus status,
         UserRole role,

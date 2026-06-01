@@ -9,8 +9,8 @@ public record MessageDTO(
 
         String content,
 
-        LocalDateTime timeStamp,
-        LocalDateTime lastUpdate
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {
 
 }

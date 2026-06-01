@@ -1,7 +1,6 @@
 package com.blink.BlinkApi.room;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public record RoomDTO(
         String id,
@@ -10,7 +9,7 @@ public record RoomDTO(
         String name,
         String desc,
 
-        LocalDateTime timeStamp
+        LocalDateTime createdAt
 ) {
 
 }
