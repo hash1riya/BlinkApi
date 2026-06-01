@@ -39,6 +39,28 @@ public class UserService {
                 ));
     }
 
+    public UserDTO findByUsername(String username) {
+        return this.repo.findByUsername(username)
+                .map(UserMapper::toDto)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        UserService.class
+                                + ": User " + username
+                                + "not found"
+                ));
+    }
+
+    public UserDTO findByEmail(String email) {
+        return this.repo.findByEmail(email)
+                .map(UserMapper::toDto)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        UserService.class
+                                + ": User " + email
+                                + "not found"
+                ));
+    }
+
     public User findEntityById(String id) {
         return this.repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(

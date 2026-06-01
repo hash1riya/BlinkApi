@@ -7,9 +7,10 @@ public interface UserMapper {
         return new UserDTO(
                 u.getId(),
                 u.getUsername(),
+                u.getEmail(),
                 u.getDesc(),
                 u.getStatus(),
-                u.getTimeStamp()
+                u.getCreatedAt()
         );
     }
 
@@ -18,8 +19,9 @@ public interface UserMapper {
                 uDto.id(),
                 uDto.name(),
                 uDto.desc(),
+                uDto.email(),
                 uDto.status(),
-                uDto.timeStamp()
+                uDto.createdAt()
         );
     }
 
@@ -27,6 +29,7 @@ public interface UserMapper {
         return new User(
                 null,
                 uDto.name(),
+                uDto.email(),
                 uDto.desc(),
                 UserStatus.OFFLINE,
                 LocalDateTime.now()

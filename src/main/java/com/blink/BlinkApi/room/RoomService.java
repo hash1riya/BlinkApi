@@ -32,6 +32,17 @@ class RoomService {
                 ));
     }
 
+    public RoomDTO findByName(String name) {
+        return this.repo.findByName(name)
+                .map(RoomMapper::toDto)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        RoomService.class
+                                + ": Room " + name
+                                + " not found"
+                ));
+    }
+
     public Room findEntityById(String id) {
         return this.repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(

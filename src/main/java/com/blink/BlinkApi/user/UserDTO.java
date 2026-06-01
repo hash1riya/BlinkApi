@@ -6,9 +6,10 @@ public record UserDTO(
         String id,
 
         String name,
+        String email,
         String desc,
         UserStatus status,
 
-        LocalDateTime timeStamp
+        LocalDateTime createdAt
 ) {
 }
