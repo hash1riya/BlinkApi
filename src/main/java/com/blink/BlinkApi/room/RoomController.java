@@ -1,7 +1,5 @@
 package com.blink.BlinkApi.room;
 
-import com.blink.BlinkApi.common.RoomMemberDTO;
-import com.blink.BlinkApi.common.RoomMemberMapper;
 import com.blink.BlinkApi.user.UserDTO;
 import com.blink.BlinkApi.user.UserService;
 import lombok.RequiredArgsConstructor;

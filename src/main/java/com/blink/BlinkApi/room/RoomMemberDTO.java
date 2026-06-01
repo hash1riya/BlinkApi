@@ -1,6 +1,5 @@
-package com.blink.BlinkApi.common;
+package com.blink.BlinkApi.room;
 
-import com.blink.BlinkApi.room.UserRole;
 import com.blink.BlinkApi.user.UserDTO;
 import com.blink.BlinkApi.user.UserStatus;
 

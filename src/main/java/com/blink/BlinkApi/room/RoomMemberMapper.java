@@ -1,6 +1,5 @@
-package com.blink.BlinkApi.common;
+package com.blink.BlinkApi.room;
 
-import com.blink.BlinkApi.room.Membership;
 import com.blink.BlinkApi.user.UserDTO;
 
 public interface RoomMemberMapper {

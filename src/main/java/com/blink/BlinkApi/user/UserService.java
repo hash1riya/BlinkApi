@@ -77,8 +77,8 @@ public class UserService {
     public UserDTO update(String targetId, UserDTO upd) {
         User targetUser = this.findEntityById(targetId);
 
-        if (upd.name() != null)
-            targetUser.setUsername(upd.name());
+        if (upd.username() != null)
+            targetUser.setUsername(upd.username());
         if (upd.desc() != null)
             targetUser.setDesc(upd.desc());
         if (upd.status() != null)
