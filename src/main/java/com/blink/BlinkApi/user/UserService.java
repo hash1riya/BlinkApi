@@ -14,6 +14,14 @@ public class UserService {
 
     private final UserRepository repo;
 
+    private User findEntityById(String id) {
+        return this.repo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        UserService.class
+                                + ": User not found"
+                ));
+    }
 
     public List<UserDTO> findAll() {
         return this.repo.findAll()
@@ -58,14 +66,6 @@ public class UserService {
                         UserService.class
                                 + ": User " + email
                                 + "not found"
-                ));
-    }
-
-    public User findEntityById(String id) {
-        return this.repo.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        UserService.class + ": Room not found"
                 ));
     }
 

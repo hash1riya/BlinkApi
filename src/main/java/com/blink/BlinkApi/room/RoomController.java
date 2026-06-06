@@ -1,5 +1,7 @@
 package com.blink.BlinkApi.room;
 
+import com.blink.BlinkApi.message.MessageDTO;
+import com.blink.BlinkApi.message.MessageService;
 import com.blink.BlinkApi.user.UserDTO;
 import com.blink.BlinkApi.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,8 @@ import java.util.stream.Collectors;
 public class RoomController {
 
     private final RoomService rService;
-    private final MembershipService mService;
+    private final MembershipService membershipService;
+    private final MessageService mService;
     private final UserService uService;
 
     // -- Core Room Management --
@@ -37,10 +40,10 @@ public class RoomController {
 
         RoomDTO newRoom = this.rService.create(req);
 
-        this.mService.createMembership(
+        this.membershipService.createMembership(
                 newRoom.id(),
                 newRoom.ownerId(),
-                UserRole.OWNER
+                MemberRole.OWNER
         );
 
         return newRoom;
@@ -65,9 +68,9 @@ public class RoomController {
 
     // 1. Get all users per room
     @GetMapping("/{roomId}/members")
-    public List<RoomMemberDTO> findAllUsersPerRoom(@PathVariable String roomId) {
+    public List<RoomMemberDTO> findRoomMembers(@PathVariable String roomId) {
 
-        List<Membership> ms = this.mService.findAllUsersByRoomId(roomId);
+        List<Membership> ms = this.membershipService.findRoomMembers(roomId);
         List<String> userIds = ms
                 .stream()
                 .map(Membership::getUserId)
@@ -91,9 +94,9 @@ public class RoomController {
 
     // 2. Get all rooms per user
     @GetMapping("/userRooms/{userId}")
-    public List<RoomDTO> findAllRoomsPerUser(@PathVariable String userId) {
+    public List<RoomDTO> findUserMemberships(@PathVariable String userId) {
 
-        List<Membership> ms = this.mService.findAllRoomsByUserId(userId);
+        List<Membership> ms = this.membershipService.findUserMemberships(userId);
         List<String> roomIds = ms
                 .stream()
                 .map(Membership::getRoomId)
@@ -108,7 +111,7 @@ public class RoomController {
             @RequestParam String userId) {
 
         UserDTO u = this.uService.findById(userId);
-        Membership m = this.mService.createMembership(roomId, userId);
+        Membership m = this.membershipService.createMembership(roomId, userId);
 
         return RoomMemberMapper.toDto(u, m);
     }
@@ -119,7 +122,7 @@ public class RoomController {
             @PathVariable String roomId,
             @PathVariable String userId) {
 
-        Membership m = this.mService.findByRoomAndUserId(roomId, userId);
+        Membership m = this.membershipService.findByRoomAndUserId(roomId, userId);
         Room r = this.rService.findEntityById(m.getRoomId());
 
         if (r.getOwnerId().equals(userId)) {
@@ -131,7 +134,7 @@ public class RoomController {
             );
         }
 
-        return this.mService.deleteMembership(m);
+        return this.membershipService.deleteMembership(m);
     }
 
     // 4. Update user role
@@ -139,10 +142,33 @@ public class RoomController {
     public boolean updateUserRole(
             @PathVariable String roomId,
             @PathVariable String userId,
-            @RequestParam UserRole role) {
+            @RequestParam MemberRole role) {
 
-        this.mService.updateMembershipRole(roomId, userId, role);
+        this.membershipService.updateMembershipRole(roomId, userId, role);
         return true;
+    }
+
+
+
+    // --- Message Search ---
+
+    // 1. Get message history
+    @GetMapping("/{roomId}/history")
+    public List<MessageDTO> getRoomHistory(@PathVariable String roomId) {
+        return this.mService.findAllByRoomId(roomId);
+    }
+
+    // 2. Search messages in room history
+    @GetMapping("/{roomId}/history/search")
+    public List<MessageDTO> findByContentInHistory(
+            @PathVariable String roomId,
+            @RequestParam String content
+    ) {
+
+        return this.mService.findAllByRoomId(roomId)
+                .stream()
+                .filter(m -> m.content().contains(content))
+                .toList();
     }
 
 }

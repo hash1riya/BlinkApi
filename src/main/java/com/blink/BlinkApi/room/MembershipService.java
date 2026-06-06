@@ -34,15 +34,15 @@ class MembershipService {
                 ));
     }
 
-    public List<Membership> findAllUsersByRoomId(String id) {
+    public List<Membership> findRoomMembers(String id) {
         return this.repo.findByRoomId(id);
     }
 
-    public List<Membership> findAllRoomsByUserId(String userId) {
+    public List<Membership> findUserMemberships(String userId) {
         return this.repo.findByUserId(userId);
     }
 
-    public Membership createMembership(String roomId, String userId, UserRole role) {
+    public Membership createMembership(String roomId, String userId, MemberRole role) {
 
         if (this.repo.findByRoomUserId(roomId, userId).isPresent())
             throw new ResponseStatusException(
@@ -62,10 +62,10 @@ class MembershipService {
     }
 
     public Membership createMembership(String roomId, String userId) {
-        return this.createMembership(roomId, userId, UserRole.MEMBER);
+        return this.createMembership(roomId, userId, MemberRole.MEMBER);
     }
 
-    public boolean updateMembershipRole(String roomId, String userId, UserRole r) {
+    public boolean updateMembershipRole(String roomId, String userId, MemberRole r) {
         this.repo.updateRole(roomId, userId, r);
         return true;
     }

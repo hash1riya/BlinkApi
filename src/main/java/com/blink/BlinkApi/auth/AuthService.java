@@ -42,7 +42,7 @@ public class AuthService {
         );
     }
 
-    public AuthResponse auth(AuthRequest req) {
+    public AuthResponse authenticate(AuthRequest req) {
 
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

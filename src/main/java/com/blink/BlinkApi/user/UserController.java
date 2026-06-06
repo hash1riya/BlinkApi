@@ -107,7 +107,23 @@ public class UserController {
             @RequestParam String userB) {
 
         Friendship f = this.fService.findFriendshipBetween(userA, userB);
-        return this.fService.deleteMembership(f);
+        return this.fService.deleteFriendship(f);
+    }
+
+
+
+    // --- User Search ---
+
+    // 1. Search by username
+    @GetMapping("/search/{username}")
+    public UserDTO findByUsername(@PathVariable String username) {
+        return this.uService.findByUsername(username);
+    }
+
+    // 2. Search by email
+    @GetMapping("/search/{email}")
+    public UserDTO findByEmail(@PathVariable String email) {
+        return this.uService.findByEmail(email);
     }
 
 }

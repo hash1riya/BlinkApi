@@ -19,8 +19,8 @@ class FriendshipService {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         FriendshipService.class
-                                + ": This friendship does not exist. ID: "
-                                + id
+                                + ": Friendship " + id
+                                + " does not exist"
                 ));
     }
 
@@ -30,7 +30,7 @@ class FriendshipService {
                         HttpStatus.NOT_FOUND,
                         FriendshipService.class
                         + ": User " + userA
-                        + "is not a friend to user " + userB
+                        + " is not a friend to user " + userB
                 ));
     }
 
@@ -73,7 +73,7 @@ class FriendshipService {
         return true;
     }
 
-    public boolean deleteMembership(Friendship f) {
+    public boolean deleteFriendship(Friendship f) {
         this.repo.delete(f);
         return true;
     }

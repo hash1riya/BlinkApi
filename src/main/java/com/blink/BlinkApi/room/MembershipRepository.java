@@ -21,5 +21,5 @@ interface MembershipRepository extends MongoRepository<Membership, String> {
 
     @Query("{ 'roomId': '?0', 'userId': '?1' }")
     @Update("{ '$set' : { 'role': '?2' } }")
-    void updateRole(String roomId, String userId, UserRole role);
+    void updateRole(String roomId, String userId, MemberRole role);
 }

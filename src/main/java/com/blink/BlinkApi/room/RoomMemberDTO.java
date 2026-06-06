@@ -9,7 +9,7 @@ public record RoomMemberDTO(
 
         UserDTO user,
 
-        UserRole role,
+        MemberRole role,
 
         LocalDateTime joinedAt
 ) {

@@ -17,7 +17,7 @@ public class Membership {
     private String roomId;
     private String userId;
 
-    private UserRole role;
+    private MemberRole role;
 
     @CreatedDate
     private LocalDateTime joinedAt;

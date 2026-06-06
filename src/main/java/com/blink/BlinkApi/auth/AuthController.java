@@ -19,11 +19,11 @@ public class AuthController {
         return this.service.register(req);
     }
 
-    @PostMapping("/auth")
-    public AuthResponse auth(
+    @PostMapping("/authenticate")
+    public AuthResponse authenticate(
             @RequestBody AuthRequest req
     ) {
-        return this.service.auth(req);
+        return this.service.authenticate(req);
     }
 
 }

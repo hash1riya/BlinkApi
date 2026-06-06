@@ -82,7 +82,7 @@ class RoomService {
         return RoomMapper.toDto(this.repo.save(targetRoom));
     }
 
-    public RoomDTO changeOwner(String targetId, String newOwnerId) {
+    public RoomDTO changeRoomOwner(String targetId, String newOwnerId) {
         Room targetRoom = this.findEntityById(targetId);
         targetRoom.setOwnerId(newOwnerId);
         return RoomMapper.toDto(this.repo.save(targetRoom));

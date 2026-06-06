@@ -43,7 +43,7 @@ public class MessageController {
 
     // 1. Find all messages by content
     @GetMapping("/search")
-    public List<MessageDTO> findAllByContent(@RequestParam String content) {
+    public List<MessageDTO> searchByContent(@RequestParam String content) {
         return this.service.findAllByContent(content);
     }
 

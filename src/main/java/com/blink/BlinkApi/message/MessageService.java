@@ -10,9 +10,19 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-class MessageService {
+public class MessageService {
 
     private final MessageRepository repo;
+
+    private Message findEntityById(String id) {
+        return this.repo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        MessageService.class
+                                + ": Message " + id
+                                + " not found"
+                ));
+    }
 
     public List<MessageDTO> findAll() {
         return this.repo.findAll()
@@ -32,22 +42,12 @@ class MessageService {
         ));
     }
 
-    public List<MessageDTO> findByRoomId(String roomId) {
+    public List<MessageDTO> findAllByRoomId(String roomId) {
         return this.repo.findAllByRoomId(roomId);
     }
 
     public List<MessageDTO> findAllByContent(String content) {
         return this.repo.findAllByContent(content);
-    }
-
-    public Message findEntityById(String id) {
-        return this.repo.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        MessageService.class
-                                + ": Message " + id
-                                + " not found"
-                ));
     }
 
     public MessageDTO create(MessageDTO msg) {
