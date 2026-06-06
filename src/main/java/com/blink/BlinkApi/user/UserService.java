@@ -69,11 +69,6 @@ public class UserService {
                 ));
     }
 
-    public UserDTO create(UserDTO user) {
-        User newUser = UserMapper.toFreshEntity(user);
-        return UserMapper.toDto(this.repo.save(newUser));
-    }
-
     public UserDTO update(String targetId, UserDTO upd) {
         User targetUser = this.findEntityById(targetId);
 

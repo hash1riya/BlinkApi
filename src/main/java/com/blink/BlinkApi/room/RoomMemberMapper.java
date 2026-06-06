@@ -8,7 +8,6 @@ public interface RoomMemberMapper {
         return new RoomMemberDTO(
                 m.getId(),
                 user,
-                user.status(),
                 m.getRole(),
                 m.getJoinedAt()
         );

@@ -1,7 +1,6 @@
 package com.blink.BlinkApi.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,16 +44,11 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO findById(@PathVariable String id) { return this.uService.findById(id); }
 
-    // 3. Create new user
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO create(@RequestBody UserDTO req) { return this.uService.create(req); }
-
-    // 4. Update existing user
+    // 3. Update existing user
     @PutMapping("/{id}")
     public UserDTO update(@PathVariable String id, @RequestBody UserDTO req) { return this.uService.update(id, req); }
 
-    // 5. Delete user
+    // 4. Delete user
     @DeleteMapping("/{id}")
     public UserDTO delete(@PathVariable String id) { return this.uService.delete(id); }
 
@@ -85,7 +79,7 @@ public class UserController {
 
     // 4. Send friend request
     @PostMapping("/{requesterId}/friends")
-    public FriendshipDTO sendRequest(
+    public FriendshipDTO sendFriendRequest(
             @PathVariable String requesterId,
             @RequestParam String receiverId) {
 
@@ -95,7 +89,7 @@ public class UserController {
 
     // 5. Accept friend request
     @PatchMapping("/{receiverId}/friends")
-    public boolean acceptRequest(
+    public boolean acceptFriendRequest(
             @PathVariable String receiverId,
             @RequestParam String requesterId) {
 

@@ -11,24 +11,4 @@ interface RoomMapper {
                 r.getCreatedAt()
         );
     }
-
-    static Room toEntity(RoomDTO rDto) {
-        return new Room(
-                rDto.id(),
-                rDto.ownerId(),
-                rDto.name(),
-                rDto.desc(),
-                rDto.createdAt()
-        );
-    }
-
-    static Room toFreshEntity(RoomDTO rDto) {
-        return new Room(
-                null,
-                rDto.ownerId(),
-                rDto.name(),
-                rDto.desc(),
-                null
-        );
-    }
 }

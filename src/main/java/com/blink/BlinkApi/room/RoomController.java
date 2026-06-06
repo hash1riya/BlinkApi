@@ -67,7 +67,7 @@ public class RoomController {
     @GetMapping("/{roomId}/members")
     public List<RoomMemberDTO> findAllUsersPerRoom(@PathVariable String roomId) {
 
-        List<Membership> ms = this.mService.findByRoomId(roomId);
+        List<Membership> ms = this.mService.findAllUsersByRoomId(roomId);
         List<String> userIds = ms
                 .stream()
                 .map(Membership::getUserId)
@@ -89,6 +89,18 @@ public class RoomController {
                 .toList();
     }
 
+    // 2. Get all rooms per user
+    @GetMapping("/userRooms/{userId}")
+    public List<RoomDTO> findAllRoomsPerUser(@PathVariable String userId) {
+
+        List<Membership> ms = this.mService.findAllRoomsByUserId(userId);
+        List<String> roomIds = ms
+                .stream()
+                .map(Membership::getRoomId)
+                .toList();
+        return this.rService.findAllByIds(roomIds);
+    }
+
     // 2. Join room
     @PostMapping("/{roomId}/members")
     public RoomMemberDTO joinRoom(
@@ -107,7 +119,7 @@ public class RoomController {
             @PathVariable String roomId,
             @PathVariable String userId) {
 
-        Membership m = this.mService.findByRoomUserId(roomId, userId);
+        Membership m = this.mService.findByRoomAndUserId(roomId, userId);
         Room r = this.rService.findEntityById(m.getRoomId());
 
         if (r.getOwnerId().equals(userId)) {

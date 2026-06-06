@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,15 +23,7 @@ class MembershipService {
                 ));
     }
 
-    public List<Membership> findByRoomId(String id) {
-        return this.repo.findAll()
-                .stream()
-                .filter(m ->
-                        m.getRoomId().equals(id))
-                .collect(Collectors.toList());
-    }
-
-    public Membership findByRoomUserId(String roomId, String userId) {
+    public Membership findByRoomAndUserId(String roomId, String userId) {
         return this.repo
                 .findByRoomUserId(roomId, userId)
                 .orElseThrow(() -> new ResponseStatusException(
@@ -42,6 +32,14 @@ class MembershipService {
                                 + ": User " + userId
                                 + " does not participate in room " + roomId
                 ));
+    }
+
+    public List<Membership> findAllUsersByRoomId(String id) {
+        return this.repo.findByRoomId(id);
+    }
+
+    public List<Membership> findAllRoomsByUserId(String userId) {
+        return this.repo.findByUserId(userId);
     }
 
     public Membership createMembership(String roomId, String userId, UserRole role) {

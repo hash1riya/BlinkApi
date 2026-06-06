@@ -8,7 +8,6 @@ public record UserDTO(
         String username,
         String email,
         String desc,
-        String password,
 
         UserStatus status,
 

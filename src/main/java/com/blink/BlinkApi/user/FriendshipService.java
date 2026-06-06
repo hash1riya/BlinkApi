@@ -34,10 +34,6 @@ class FriendshipService {
                 ));
     }
 
-    public List<Friendship> findAllRequestsPerUser(String userId) {
-        return this.repo.findAllRequestsPerUser(userId);
-    }
-
     public List<Friendship> findAllAcceptedFriendships(String userId) {
         return this.repo.findAllAcceptedFriendships(userId);
     }

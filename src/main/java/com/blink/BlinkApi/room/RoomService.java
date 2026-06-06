@@ -32,6 +32,13 @@ class RoomService {
                 ));
     }
 
+    public List<RoomDTO> findAllByIds(List<String> ids) {
+        return this.repo.findAllById(ids)
+                .stream()
+                .map(RoomMapper::toDto)
+                .toList();
+    }
+
     public RoomDTO findByName(String name) {
         return this.repo.findByName(name)
                 .map(RoomMapper::toDto)
@@ -54,7 +61,13 @@ class RoomService {
     }
 
     public RoomDTO create(RoomDTO room) {
-        Room newRoom = RoomMapper.toFreshEntity(room);
+        Room newRoom = new Room(
+                null,
+                room.ownerId(),
+                room.name(),
+                room.desc(),
+                null
+        );
         return RoomMapper.toDto(this.repo.save(newRoom));
     }
 
