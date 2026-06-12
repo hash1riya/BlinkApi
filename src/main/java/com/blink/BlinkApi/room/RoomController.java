@@ -1,4 +1,174 @@
 package com.blink.BlinkApi.room;
 
+import com.blink.BlinkApi.message.MessageDTO;
+import com.blink.BlinkApi.message.MessageService;
+import com.blink.BlinkApi.user.UserDTO;
+import com.blink.BlinkApi.user.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/blink/rooms")
+@RequiredArgsConstructor
 public class RoomController {
+
+    private final RoomService rService;
+    private final MembershipService membershipService;
+    private final MessageService mService;
+    private final UserService uService;
+
+    // -- Core Room Management --
+
+    // 1. Get all rooms
+    @GetMapping
+    public List<RoomDTO> findAll() { return this.rService.findAll(); }
+
+    // 2. Find room by ID
+    @GetMapping("/{id}")
+    public RoomDTO findById(@PathVariable String id) { return this.rService.findById(id); }
+
+    // 3. Create new room
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public RoomDTO create(@RequestBody RoomDTO req) {
+
+        RoomDTO newRoom = this.rService.create(req);
+
+        this.membershipService.createMembership(
+                newRoom.id(),
+                newRoom.ownerId(),
+                MemberRole.OWNER
+        );
+
+        return newRoom;
+    }
+
+    // 4. Update existing room
+    @PutMapping("/{id}")
+    public RoomDTO update(
+            @PathVariable String id,
+            @RequestBody RoomDTO req) {
+
+        return this.rService.update(id, req);
+    }
+
+    // 5. Delete room
+    @DeleteMapping("/{id}")
+    public RoomDTO delete(@PathVariable String id) { return this.rService.delete(id); }
+
+
+
+    // --- Membership Management ---
+
+    // 1. Get all users per room
+    @GetMapping("/{roomId}/members")
+    public List<RoomMemberDTO> findRoomMembers(@PathVariable String roomId) {
+
+        List<Membership> ms = this.membershipService.findRoomMembers(roomId);
+        List<String> userIds = ms
+                .stream()
+                .map(Membership::getUserId)
+                .toList();
+        List<UserDTO> users = this.uService.findAllByIds(userIds);
+
+        Map<String, Membership> membershipMap = ms
+                .stream()
+                .collect(Collectors.toMap(
+                        Membership::getUserId,
+                        m -> m));
+
+        return users
+                .stream()
+                .map(u ->
+                        RoomMemberMapper.toDto(
+                                u,
+                                membershipMap.get(u.id())))
+                .toList();
+    }
+
+    // 2. Get all rooms per user
+    @GetMapping("/userRooms/{userId}")
+    public List<RoomDTO> findUserMemberships(@PathVariable String userId) {
+
+        List<Membership> ms = this.membershipService.findUserMemberships(userId);
+        List<String> roomIds = ms
+                .stream()
+                .map(Membership::getRoomId)
+                .toList();
+        return this.rService.findAllByIds(roomIds);
+    }
+
+    // 2. Join room
+    @PostMapping("/{roomId}/members")
+    public RoomMemberDTO joinRoom(
+            @PathVariable String roomId,
+            @RequestParam String userId) {
+
+        UserDTO u = this.uService.findById(userId);
+        Membership m = this.membershipService.createMembership(roomId, userId);
+
+        return RoomMemberMapper.toDto(u, m);
+    }
+
+    // 3. Leave room
+    @DeleteMapping("/{roomId}/members/{userId}")
+    public boolean leaveRoom(
+            @PathVariable String roomId,
+            @PathVariable String userId) {
+
+        Membership m = this.membershipService.findByRoomAndUserId(roomId, userId);
+        Room r = this.rService.findEntityById(m.getRoomId());
+
+        if (r.getOwnerId().equals(userId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    RoomController.class
+                            + ": User " + userId
+                            + " is the Owner of the room " + roomId
+            );
+        }
+
+        return this.membershipService.deleteMembership(m);
+    }
+
+    // 4. Update user role
+    @PatchMapping("/{roomId}/members/{userId}")
+    public boolean updateUserRole(
+            @PathVariable String roomId,
+            @PathVariable String userId,
+            @RequestParam MemberRole role) {
+
+        this.membershipService.updateMembershipRole(roomId, userId, role);
+        return true;
+    }
+
+
+
+    // --- Message Search ---
+
+    // 1. Get message history
+    @GetMapping("/{roomId}/history")
+    public List<MessageDTO> getRoomHistory(@PathVariable String roomId) {
+        return this.mService.findAllByRoomId(roomId);
+    }
+
+    // 2. Search messages in room history
+    @GetMapping("/{roomId}/history/search")
+    public List<MessageDTO> findByContentInHistory(
+            @PathVariable String roomId,
+            @RequestParam String content
+    ) {
+
+        return this.mService.findAllByRoomId(roomId)
+                .stream()
+                .filter(m -> m.content().contains(content))
+                .toList();
+    }
+
 }

@@ -1,7 +1,7 @@
-package com.blink.BlinkApi.message;
+package com.blink.BlinkApi.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -10,19 +10,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
-@Document(collection = "messages")
-public class Message {
+@NoArgsConstructor
+@Document(collection = "friendships")
+class Friendship {
+
     @Id
     private String id;
-    private String userId;
-    private String roomId;
 
-    private String username;
-    private String content;
+    private String requesterId;
+    private String receiverId;
+
+    private FriendshipStatus status;
+
+    private String actionUserId;
 
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
+    private LocalDateTime lastInteractionAt;
 }

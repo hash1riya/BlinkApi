@@ -1,4 +1,17 @@
 package com.blink.BlinkApi.room;
 
-public record RoomDTO {
+import java.time.LocalDateTime;
+
+public record RoomDTO(
+        String id,
+        String ownerId,
+
+        String name,
+        String desc,
+
+        RoomType type,
+
+        LocalDateTime createdAt
+) {
+
 }
