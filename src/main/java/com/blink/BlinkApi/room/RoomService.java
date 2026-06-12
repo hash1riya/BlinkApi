@@ -66,6 +66,7 @@ class RoomService {
                 room.ownerId(),
                 room.name(),
                 room.desc(),
+                room.type(),
                 null
         );
         return RoomMapper.toDto(this.repo.save(newRoom));

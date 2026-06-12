@@ -23,10 +23,10 @@ public class MessageController {
     @GetMapping("/{id}")
     public MessageDTO findById(@PathVariable String id) { return this.service.findById(id); }
 
-    // 3. Create message
+    // 3. Send message
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageDTO create(@RequestBody MessageDTO req) { return this.service.create(req); }
+    public MessageDTO send(@RequestBody MessageDTO req) { return this.service.create(req); }
 
     // 4. Update message
     @PutMapping("/{id}")

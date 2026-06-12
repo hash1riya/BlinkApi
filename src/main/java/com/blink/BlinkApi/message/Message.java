@@ -18,6 +18,7 @@ public class Message {
     private String userId;
     private String roomId;
 
+    private String username;
     private String content;
 
     @CreatedDate

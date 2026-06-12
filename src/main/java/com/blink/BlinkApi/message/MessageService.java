@@ -51,7 +51,15 @@ public class MessageService {
     }
 
     public MessageDTO create(MessageDTO msg) {
-        Message newMsg = MessageMapper.toFreshEntity(msg);
+        Message newMsg = new Message(
+                null,
+                msg.userId(),
+                msg.roomId(),
+                msg.username(),
+                msg.content(),
+                null,
+                null
+        );
         return MessageMapper.toDto(this.repo.save(newMsg));
     }
 

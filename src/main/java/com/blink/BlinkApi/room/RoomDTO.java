@@ -9,6 +9,8 @@ public record RoomDTO(
         String name,
         String desc,
 
+        RoomType type,
+
         LocalDateTime createdAt
 ) {
 

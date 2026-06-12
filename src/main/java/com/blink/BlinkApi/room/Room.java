@@ -19,6 +19,8 @@ public class Room {
     private String name;
     private String desc;
 
+    private RoomType type;
+
     @CreatedDate
     private LocalDateTime createdAt;
 }

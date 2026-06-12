@@ -8,6 +8,7 @@ interface RoomMapper {
                 r.getOwnerId(),
                 r.getName(),
                 r.getDesc(),
+                r.getType(),
                 r.getCreatedAt()
         );
     }

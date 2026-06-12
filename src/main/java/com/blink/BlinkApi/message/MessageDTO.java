@@ -7,6 +7,7 @@ public record MessageDTO(
         String userId,
         String roomId,
 
+        String username,
         String content,
 
         LocalDateTime createdAt,
