@@ -414,14 +414,14 @@ and
 
 #### `PUT /blink/messages/{messageId}?content="Sup coolBob"`
 * **Context:** Protected (Requires Valid JWT Bearer Token)
-* Payload Response (201 CREATED): Send message 
+* Payload Response (201 CREATED): Update message 
 ```json
    {
       "id": "65cb3f9a12b...",
       "userId": "65cb3f9a12b...",
       "roomId": "65cb3f9a12b...",
       "username": "daniil",
-      "content": "Sup coolBob",
+      "content": "SUP COOLBOB!!!",
       "createdAt": "2026-06-02T21:25:42.926",
       "updatedAt": "2026-06-02T21:25:42.926"
     }
@@ -429,7 +429,7 @@ and
 
 #### `GET /blink/messages/search?content="sup"`
 * **Context:** Protected (Requires Valid JWT Bearer Token)
-* Payload Response (201 CREATED): Send message 
+* Payload Response (201 CREATED): Search sent and received messages by content 
 ```json
   [
     {
