@@ -412,7 +412,7 @@ and
     }
 ```
 
-#### `PUT /blink/messages/{messageId}?content="Sup coolBob"`
+#### `PUT /blink/messages/{messageId}?content="SUP COOLBOB!!!"`
 * **Context:** Protected (Requires Valid JWT Bearer Token)
 * Payload Response (201 CREATED): Update message 
 ```json
