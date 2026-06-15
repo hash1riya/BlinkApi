@@ -374,7 +374,7 @@ and
       "userId": "65cb3f9a12b...",
       "roomId": "65cb3f9a12b...",
       "username": "daniil",
-      "content": "Sup coolBOb",
+      "content": "Sup coolBob",
       "createdAt": "2026-06-02T21:25:42.926",
       "updatedAt": "2026-06-02T21:25:42.926"
     },
@@ -386,7 +386,71 @@ and
 
 ### 4. Message Directory
 
+#### `POST /blink/messages`
+* **Context:** Protected (Requires Valid JWT Bearer Token)
+* **Payload Request:**
+```json
+   {
+      "userId": "65cb3f9a12b...",
+      "roomId": "65cb3f9a12b...",
+      "username": "daniil",
+      "content": "Sup coolBob"
+   }
+```
+* Payload Response (201 CREATED): Send message 
+```json
+   {
+      "id": "65cb3f9a12b...",
+      "userId": "65cb3f9a12b...",
+      "roomId": "65cb3f9a12b...",
+      "username": "daniil",
+      "content": "Sup coolBob",
+      "createdAt": "2026-06-02T21:25:42.926",
+      "updatedAt": "2026-06-02T21:25:42.926"
+    }
+```
 
+#### `PUT /blink/messages/{messageId}?content="Sup coolBob"`
+* **Context:** Protected (Requires Valid JWT Bearer Token)
+* Payload Response (201 CREATED): Send message 
+```json
+   {
+      "id": "65cb3f9a12b...",
+      "userId": "65cb3f9a12b...",
+      "roomId": "65cb3f9a12b...",
+      "username": "daniil",
+      "content": "Sup coolBob",
+      "createdAt": "2026-06-02T21:25:42.926",
+      "updatedAt": "2026-06-02T21:25:42.926"
+    }
+```
+
+#### `GET /blink/messages/search?content="sup"`
+* **Context:** Protected (Requires Valid JWT Bearer Token)
+* Payload Response (201 CREATED): Send message 
+```json
+  [
+    {
+      "id": "65cb3f9a12b...",
+      "userId": "65cb3f9a12b...",
+      "roomId": "65cb3f9a12b...",
+      "username": "coolBob",
+      "content": "Sup guys!",
+      "createdAt": "2026-06-02T21:24:42.926",
+      "updatedAt": "2026-06-02T21:24:42.926"
+    },
+    {
+      "id": "65cb3f9a12b...",
+      "userId": "65cb3f9a12b...",
+      "roomId": "65cb3f9a12b...",
+      "username": "daniil",
+      "content": "Sup coolBob",
+      "createdAt": "2026-06-02T21:25:42.926",
+      "updatedAt": "2026-06-02T21:25:42.926"
+    },
+    ...
+  ]
+```
 
 ---
 
