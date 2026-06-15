@@ -46,8 +46,8 @@ Before initiating the backend execution runtime, you must establish the followin
 ### System Execution Setup
 1. Clone the API service source directory:
 ```bash
-   git clone [https://github.com/yourusername/blink-api.git](https://github.com/yourusername/blink-api.git)
-   cd blink-api
+   git clone https://github.com/hash1riya/BlinkApi.git
+   cd BlinkApi
 ```
 
 Inject your deployment parameter and start the Spring context via Maven:
