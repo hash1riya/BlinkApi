@@ -42,13 +42,13 @@ Before initiating the backend execution runtime, you must establish the followin
 | `SECRET_KEY` | Secret for HS256 password encryption | `YourSuperSecretKeyThatIsVeryLongAndSecureEnoughForHS256AlgorithmToWorkProperly` |
 
 ### System Execution Setup
-1. Clone the API service repo:
+Clone the BlinkApi repository:
 ```bash
    git clone https://github.com/hash1riya/BlinkApi.git
    cd BlinkApi
 ```
 
-To fire ia up, inject your parameters and start the Spring context:
+To fire it up, inject your parameters and start the Spring context:
    * **Linux / macOS:**
 
 ```bash
@@ -61,6 +61,11 @@ To fire ia up, inject your parameters and start the Spring context:
    $env:MONGO_CONNECTION_STRING="your_mongodb_connection_uri";
    $env:SECRET_KEY="your_secret_key";
    mvn spring-boot:run
+```
+
+Base url for the project will be:
+```
+   http://localhost:8080/
 ```
 
 ---
