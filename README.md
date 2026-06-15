@@ -477,4 +477,4 @@ and
 ### 4. Credential Confirmation and Notifications via Mail
 **Objective:** Implement mailing mechanism which will send coresponding message on user e-mail.
 
-**Impact:** Enchances user expirience in logging in and creating new account, also notify user when new updates are comming.
+**Impact:** Enchances user expirience in logging in and creating new account, also makes possible to notify user when new updates are comming.
