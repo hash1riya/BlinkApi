@@ -54,11 +54,13 @@ Inject your deployment parameter and start the Spring context via Maven:
 
 ```bash
    export MONGO_CONNECTION_STRING="your_mongodb_connection_uri"
+   export SECRET_KEY="YourSuperSecretKeyThatIsVeryLongAndSecureEnoughForHS256AlgorithmToWorkProperly"
    mvn spring-boot:run
 ```
    * **Windows (PowerShell):**
 ```powershell
-   $env:MONGO_CONNECTION_STRING="your_mongodb_connection_uri"
+   $env:MONGO_CONNECTION_STRING="your_mongodb_connection_uri";
+   $env:SECRET_KEY="YourSuperSecretKeyThatIsVeryLongAndSecureEnoughForHS256AlgorithmToWorkProperly";
    mvn spring-boot:run
 ```
 
