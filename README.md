@@ -41,6 +41,7 @@ Before initiating the backend execution runtime, you must establish the followin
 | Variable Identifier | Operational Target | Format Template |
 | :--- | :--- | :--- |
 | `MONGO_CONNECTION_STRING` | Destination pointer for the MongoDB cluster | `mongodb+srv://<user>:<pwd>@cluster.mongodb.net/blink` |
+| `SECRET_KEY` | Secret for HS256 password encryption | `YourSuperSecretKeyThatIsVeryLongAndSecureEnoughForHS256AlgorithmToWorkProperly` |
 
 ### System Execution Setup
 1. Clone the API service source directory:
@@ -54,13 +55,13 @@ Inject your deployment parameter and start the Spring context via Maven:
 
 ```bash
    export MONGO_CONNECTION_STRING="your_mongodb_connection_uri"
-   export SECRET_KEY="YourSuperSecretKeyThatIsVeryLongAndSecureEnoughForHS256AlgorithmToWorkProperly"
+   export SECRET_KEY="your_secret_key"
    mvn spring-boot:run
 ```
    * **Windows (PowerShell):**
 ```powershell
    $env:MONGO_CONNECTION_STRING="your_mongodb_connection_uri";
-   $env:SECRET_KEY="YourSuperSecretKeyThatIsVeryLongAndSecureEnoughForHS256AlgorithmToWorkProperly";
+   $env:SECRET_KEY="your_secret_key";
    mvn spring-boot:run
 ```
 
