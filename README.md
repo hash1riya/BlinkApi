@@ -33,10 +33,8 @@ To prevent database schema bloating and minimize index maintenance costs, the pe
 
 ## 🔒 Configuration & Environment Variables
 
-To protect live cluster access, the backend prohibits hardcoded production strings. The Spring layer dynamically injects values via environmental parsing placeholders.
-
 ### Required Parameters
-Before initiating the backend execution runtime, you must establish the following environment key-value property:
+Before initiating the backend execution runtime, you must establish the following environment variables:
 
 | Variable Identifier | Operational Target | Format Template |
 | :--- | :--- | :--- |
@@ -44,13 +42,13 @@ Before initiating the backend execution runtime, you must establish the followin
 | `SECRET_KEY` | Secret for HS256 password encryption | `YourSuperSecretKeyThatIsVeryLongAndSecureEnoughForHS256AlgorithmToWorkProperly` |
 
 ### System Execution Setup
-1. Clone the API service source directory:
+1. Clone the API service repo:
 ```bash
    git clone https://github.com/hash1riya/BlinkApi.git
    cd BlinkApi
 ```
 
-Inject your deployment parameter and start the Spring context via Maven:
+To fire ia up, inject your parameters and start the Spring context:
    * **Linux / macOS:**
 
 ```bash
@@ -69,7 +67,7 @@ Inject your deployment parameter and start the Spring context via Maven:
 
 ## 🗺️ API Endpoint Directory Specification
 
-Every route wrapper outside public authentication blocks requires a validated authorization token attached to the request headers: `Authorization: Bearer <your_jwt_token>`.
+Every route wrapper outside public authentication block requires a validated authorization token attached to the request headers: `Authorization: Bearer <your_jwt_token>`.
 
 ### 1. Authentication Layer
 
