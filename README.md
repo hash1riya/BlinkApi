@@ -465,11 +465,16 @@ and
 **Impact:** Prevents database performance degradation. Instead of dumping thousands of old messages onto the client at once, the API will stream history incrementally (e.g., 100 messages per request) as the user scrolls up.
 
 ### 2. Media Handling & Blob Storage Service
-**Objective** Build out a dedicated multi-part file routing controller integrated with an object storage cloud solution (like AWS S3 or MinIO).
+**Objective:** Build out a dedicated multi-part file routing controller integrated with an object storage cloud solution (like AWS S3 or MinIO).
 
-**Impact** Expands Blink past basic text-only interactions, giving users the ability to safely upload, store, and stream attachments, images, and profile avatars.
+**Impact:** Expands Blink past basic text-only interactions, giving users the ability to safely upload, store, and stream attachments, images, and profile avatars.
 
 ### 3. Scalable Event Brokerage (Redis Pub/Sub)
-**Objective** Implement a Redis caching and messaging abstraction layer on top of the Core Service layer.
+**Objective:** Implement a Redis caching and messaging abstraction layer on top of the Core Service layer.
 
-**Impact** Prepares the backend for horizontal scaling. If you deploy multiple instances of your Spring Boot API behind a load balancer, Redis ensures that a message sent to Server A is instantly broadcasted to users connected to Server B.
+**Impact:** Prepares the backend for horizontal scaling. If you deploy multiple instances of your Spring Boot API behind a load balancer, Redis ensures that a message sent to Server A is instantly broadcasted to users connected to Server B.
+
+### 4. Credential Confirmation and Notifications via Mail
+**Objective:** Implement mailing mechanism which will send coresponding message on user e-mail.
+
+**Impact:** Enchance user expirience in logging in and creating new account, also notify user when new updates are comming.
